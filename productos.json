@@ -5,18 +5,18 @@
     "id": 1
   },
   {
-    "title": "Club Colombia",
-    "price": 5000,
+    "title": "Heineken",
+    "price": 8000,
     "id": 2
   },
   {
-    "title": "Club Colombia",
-    "price": 5000,
+    "title": "Corona",
+    "price": 9000,
     "id": 3
   },
   {
-    "title": "Club Colombia",
-    "price": 5000,
+    "title": "Stella Artois",
+    "price": 9000,
     "id": 4
   }
 ]
