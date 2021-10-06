@@ -1,0 +1,27 @@
+[
+  {
+    "title": "Club Colombia Dorada",
+    "price": 4500,
+    "id": 1
+  },
+  {
+    "title": "Heineken",
+    "price": 8000,
+    "id": 2
+  },
+  {
+    "title": "Stella Artois",
+    "price": 9000,
+    "id": 4
+  },
+  {
+    "title": "Poker",
+    "price": 3000,
+    "id": 5
+  },
+  {
+    "title": "Corona",
+    "price": 9000,
+    "id": 6
+  }
+]
