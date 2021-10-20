@@ -60,14 +60,15 @@ productosRouter.delete('/:id', async(req, res)=>{
 productosRouter.post('/', async (req, res)=>{
     const newProduct= req.body
     const idProductSaved = await productosContenedor.save(req.body)
-    res.send({
+    /*  res.send({
         message: 'Product added successfully',
         data: {
         ...newProduct,
         id: idProductSaved
     }
 
-    })
+    })  */
+    res.redirect('/list-products')
 })
 
 module.exports = productosRouter
