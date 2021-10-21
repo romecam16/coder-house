@@ -30,9 +30,15 @@
     "id": 6
   },
   {
-    "title": "Cerveza Aguila",
-    "price": "4500",
+    "title": "Aguila",
+    "price": "5000",
     "photo": "https://cdn1.iconfinder.com/data/icons/brewery-astute-vol-1/512/Beer-Can-128.png",
     "id": 7
+  },
+  {
+    "title": "Costeña",
+    "price": "5000",
+    "photo": "https://cdn1.iconfinder.com/data/icons/brewery-astute-vol-1/512/Beer-Can-128.png",
+    "id": 8
   }
 ]

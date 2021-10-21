@@ -103,9 +103,14 @@ class Contenedor{
         //1. Lectura archivo
         try{
             const contenido = await fs.promises.readFile(`./${this.file}`, 'utf-8')
-            const listaProductos = JSON.parse(contenido)
-            //2. Devuelve el listado de productos
-            return listaProductos
+            if (!contenido){
+                return null
+            } else {
+                const listaProductos = JSON.parse(contenido)
+                //2. Devuelve el listado de productos
+                return listaProductos
+            }
+            
         }catch(error){
             console.error('Error: ', error)
         }

@@ -9,10 +9,17 @@ const productosContenedor = new Contenedor('data/productos.json')
 productosRouter.get('/', async(req, res)=>{
 
     const lista = await productosContenedor.getAll()
-    res.send({
-        message: 'Success',
-        data: lista
-            })
+    if(!lista){
+        res.send({
+            error: 'Producto no encontrado'
+                }) 
+    } else {
+        res.send({
+            message: 'Success',
+            data: lista
+                })
+    }
+
 })
 
 productosRouter.get('/:id', async(req, res)=>{

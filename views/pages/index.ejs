@@ -7,22 +7,26 @@
     <title>Document</title>
 </head>
 <body>
-    <table> 
-        <tr>
-            <td><strong>Name</strong></td>
-            <td><strong>Price</strong></td>
-            <td><strong>Photo</strong></td>
-        </tr>
-        <%lista.forEach(function(lista){ %>
-        <tr>
-            
-            <td> <strong><%=lista.title%></strong> </td>
-            <td><strong><%=lista.price%></strong></td>
-            <td><img src= <%= lista.photo %>></td>
-            
-            
-        </tr>
-        <% }); %>
-    </table>
+    <% if (!lista){ %>
+        <h1>No hay productos</h1>
+     <% } else { %> 
+        <table> 
+            <tr>
+                <td><strong>Name</strong></td>
+                <td><strong>Price</strong></td>
+                <td><strong>Photo</strong></td>
+            </tr>
+            <%lista.forEach(function(lista){ %>
+            <tr>
+                
+                <td> <strong><%=lista.title%></strong> </td>
+                <td><strong><%=lista.price%></strong></td>
+                <td><img src= <%= lista.photo %>></td>
+                
+            </tr>
+            <% }) %>
+        </table>
+        <% } %>
+    
 </body>
 </html>
