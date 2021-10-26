@@ -1,5 +1,11 @@
 const express = require('express')
 
+const { Server: SocketServer } = require('socket.io')
+const { Server: HttpServer } = require('http')
+
+const httpServer = new HttpServer(app)
+const io = new SocketServer(httpServer)
+
 const productosRouter = require('./routers/productos.js')
 
 const Contenedor = require('./Contenedor');
