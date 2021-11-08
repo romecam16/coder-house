@@ -50,13 +50,45 @@ class Contenedor{
 
     }
 
+    async updateById(id, element){
+        try{
+            //1. Se obtiene la lista original
+           const list = await this.getAll()
+           //2. Se obtiene el elemento a editar
+           const elementSaved = list.find(x=> x.id == id)
+           //3. Se obtiene el índice del elemento a editar para sobreescribirlo posteriormente
+           const indexElementSaved = list.findIndex(x=>x.id ==id)
+           //4. Si el id no existe, se muestra un mensaje de error
+           if (!elementSaved){
+               console.error('Elemento con el id: ' + id + ' no fue encontrado')
+               return null
+           }
+           //5. Se utiliza el spread operator para copiar los valores recibidos
+           // en el body al elemento actualizado y se complementa con el id del elemento
+           const elementUpdated = {
+               ...element,
+               id: parseInt(id, 10)
+           }
+           //6. Se actualiza el elemento en la lista con el nuevo elemento actualizado
+           list[indexElementSaved] = elementUpdated
+           //7. Se guarda la lista con el elemento actualizado
+           const listString = JSON.stringify(list, null, 2)
+           await fs.promises.writeFile(`./${this.file}`, listString)
+           //8. Retornamos el elemento actualizado
+           return elementUpdated
+        }catch(error){
+            console.error('Error: ', error)
+        }
+
+    }
+
     async getById(id){
         try{
             //1.Lee el archivo de productos
             const contenido = await fs.promises.readFile(`./${this.file}`, 'utf-8')
             const listaProductos = JSON.parse(contenido)
             //3. Crea una lista filtrando por el id del producto
-            const listaFiltrada = listaProductos.find(x=>x.id=id)
+            const listaFiltrada = listaProductos.find(x=>x.id==id)
             //4. Retorna la lista con el producto filtrado
             return listaFiltrada
         }catch(error){
@@ -71,9 +103,14 @@ class Contenedor{
         //1. Lectura archivo
         try{
             const contenido = await fs.promises.readFile(`./${this.file}`, 'utf-8')
-            const listaProductos = JSON.parse(contenido)
-            //2. Devuelve el listado de productos
-            return listaProductos
+            if (!contenido){
+                return null
+            } else {
+                const listaProductos = JSON.parse(contenido)
+                //2. Devuelve el listado de productos
+                return listaProductos
+            }
+            
         }catch(error){
             console.error('Error: ', error)
         }

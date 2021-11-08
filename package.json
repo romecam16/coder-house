@@ -1,0 +1,24 @@
+{
+  "name": "coder-house",
+  "version": "1.0.0",
+  "description": "Coder House  - Backend Programming MERN",
+  "main": "Contenedor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon serverRestful.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romecam16/coder-house.git"
+  },
+  "author": "Camilo Romero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/romecam16/coder-house/issues"
+  },
+  "homepage": "https://github.com/romecam16/coder-house#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  }
+}
