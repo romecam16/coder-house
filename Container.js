@@ -15,11 +15,13 @@ class Contenedor{
             // 2. Determinar Id nuevo basado en estado actual del archivo
             if(contenido === '') {
                 producto.id = 1;
+                producto.timestamp = Date.now()
                 productos.push(producto)
             }
             else {
                 const listadeProducto = JSON.parse(contenido)
                 producto.id = listadeProducto[listadeProducto.length-1].id + 1
+                producto.timestamp = Date.now()
                 listadeProducto.push(producto)
                 productos = listadeProducto
             }
@@ -66,8 +68,8 @@ class Contenedor{
            //5. Se utiliza el spread operator para copiar los valores recibidos
            // en el body al elemento actualizado y se complementa con el id del elemento
            const elementUpdated = {
-               ...element,
-               id: parseInt(id, 10)
+               ...elementSaved,
+               ...element
            }
            //6. Se actualiza el elemento en la lista con el nuevo elemento actualizado
            list[indexElementSaved] = elementUpdated

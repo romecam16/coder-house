@@ -1,41 +1,33 @@
 const express = require('express')
 
-const Contenedor = require('./Contenedor');
-
-
-const miContenedor = new Contenedor('productos.json')
-
-const port = 8080
+const productsRouter = require('./routers/products.js')
+const cartsRouter = require('./routers/carts.js')
 
 const server = express()
+const port = 8080
 
-//base
-server.get('/', async (req, res, next)=>{
-    const saludo = 'Bienvenido al servicio de productos'
-    res.send(saludo)
-    
+server.use(express.json())
+server.use(express.urlencoded({extended:true}))
+
+server.use('/api/products', productsRouter)
+server.use('/api/carts', cartsRouter)
+server.use(function(req, res) {
+    // Invalid requests
+          res.status(404).json({
+            error: -2,
+            description: 'route ' +req.baseUrl + req.path + ' method ' + req.method + ' not implemented'
+          });
+    })
+server.use('/form', express.static('public'));
+
+server.get('/',  (req,res)=>{
+    res.send({data: new Date()})
 })
-
-//products endpoint
-server.get('/productos', async (req, res, next)=>{
-    const productos = await miContenedor.getAll()
-    res.json(productos)
-    
-})
-
-//random product endpoint
-server.get('/productoRandom', async (req, res, next)=>{
-    const productos = await miContenedor.getAll()
-    res.json(productos[Math.round(Math.random() * productos.length)])
-    
-})
-
 
 //turn on server
-server.listen(8080, ()=>{
+server.listen(port, ()=>{
     console.log('Servidor corriendo en el puerto ' + port)
 })
-
 //error management
 server.on('error', (error) =>{
     console.log('Error', error)

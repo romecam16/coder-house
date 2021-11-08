@@ -1,34 +1,30 @@
 const express = require('express')
+const  isAdmin  = require('../middlewares/isAdmin.js')
+const { getAllProducts, getProductById, createProduct, deleteProductById, updateProduct } = require('../models/products')
+const productsRouter = express.Router()
 
-const productosRouter = express.Router()
 
-const Contenedor = require('../Contenedor');
-
-const productosContenedor = new Contenedor('data/productos.json')
-
-productosRouter.get('/', async(req, res)=>{
-
-    const lista = await productosContenedor.getAll()
+productsRouter.get('/', async(req, res)=>{
+    const lista = await getAllProducts()
     if(!lista){
         res.send({
-            error: 'Producto no encontrado'
+            error: 'Product Not Found'
                 }) 
     } else {
         res.send({
-            message: 'Success',
             data: lista
                 })
     }
 
 })
 
-productosRouter.get('/:id', async(req, res)=>{
+productsRouter.get('/:id', async(req, res)=>{
 
     const productId = req.params.id
-    const product = await productosContenedor.getById(productId)
+    const product = await getProductById(productId)
     if(!product){
         res.send({
-            error: 'Producto no encontrado'
+            error: 'Product Not Found'
                 })
     } else {
         res.send({
@@ -38,11 +34,13 @@ productosRouter.get('/:id', async(req, res)=>{
     }
 })
 
-productosRouter.put('/:id', async(req, res)=>{
+//It was added the middleware isAdmin
+productsRouter.put('/:id', isAdmin, async(req, res)=>{
 
     const productId = req.params.id
     const product = req.body
-    const productUpdated = await productosContenedor.updateById(productId, product)
+    const productUpdated = await updateProduct(productId, product)
+    
     if(!productUpdated){
         res.send({
             message: 'Product with id ' + productId + ' does not exist'
@@ -55,27 +53,28 @@ productosRouter.put('/:id', async(req, res)=>{
     }
 })
 
-productosRouter.delete('/:id', async(req, res)=>{
+//It was added the middleware isAdmin
+productsRouter.delete('/:id', isAdmin, async(req, res)=>{
 
     const productId = req.params.id
-    await productosContenedor.deletebyId(productId)
+    await deleteProductById(productId)
     res.send({
         message: 'Product deleted successfully',
             })
 })
 
-productosRouter.post('/', async (req, res)=>{
+//It was added the middleware isAdmin
+productsRouter.post('/', isAdmin, async (req, res)=>{
     const newProduct= req.body
-    const idProductSaved = await productosContenedor.save(req.body)
-    /*  res.send({
+    const idProductSaved = await createProduct(newProduct)
+      res.send({
         message: 'Product added successfully',
         data: {
         ...newProduct,
         id: idProductSaved
     }
 
-    })  */
-    res.redirect('/list-products')
+    })  
 })
 
-module.exports = productosRouter
+module.exports = productsRouter
